@@ -60,23 +60,7 @@ As we are building an **AI Agent SDK**, and the vast majority of autonomous agen
 
 Our **Filecoin Agent Storage SDK** serves as the Python/AI-native equivalent to the Synapse SDK. We abstract the complex Storage Provider APIs and blockchain wallet logic so an AI can interact with the Filecoin Onchain Cloud natively. For persistent storage and data indexing, we explicitly use **Lighthouse as our Filecoin Pin mechanism**, bridging the Python agents reliably into the verifiable FOC ecosystem.
 
-### Architectural Flow Diagram
-```mermaid
-sequenceDiagram
-    participant LLM as AI Assistant (Claude/Cursor)
-    participant MCP as MCP Server
-    participant SDK as Agent Storage SDK
-    participant Wallet as Agent FEVM Wallet
-    participant Node as Lighthouse (Filecoin Pin)
-    
-    LLM->>MCP: "Save my current context to Filecoin"
-    MCP->>SDK: execute_store_capability(data)
-    SDK->>Wallet: check_balance("calibnet")
-    SDK->>Node: POST /api/v0/add (Auth via SDK)
-    Node-->>SDK: Return CID
-    SDK-->>MCP: Provide verification CID 
-    MCP-->>LLM: "Successfully uploaded! CID: Qm..."
-```
+
 
 ### Core Modules
 - `AgentStorageClient`: The core wrapper class routing AI decisions to FOC capabilities.
