@@ -1,0 +1,4 @@
+web3>=6.10.0
+requests>=2.31.0
+mcp>=1.2.0
+streamlit>=1.30.0
