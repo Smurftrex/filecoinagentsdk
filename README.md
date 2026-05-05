@@ -48,7 +48,7 @@ python examples/basic_agent.py
 When the SDK is initialized, a unique `FEVM` wallet is deterministically generated for the agent. To test native deal extensions or smart contract logic, send testnet funds (`tFIL`) to the agent's logged address via the [Calibration Testnet Faucet](https://faucet.calibnet.chainsafe-fil.io/).
 
 ## Architecture & The Synapse SDK Strategy
-When reviewing the Hackathon's judging criteria for leveraging the **Synapse SDK** and **Filecoin Pin**, we recognized a critical gap in the ecosystem: **Synapse SDK is built for TypeScript/JavaScript**. 
+we recognized a critical gap in the ecosystem: **Synapse SDK is built for TypeScript/JavaScript**. 
 
 As we are building an **AI Agent SDK**, and the vast majority of autonomous agents (LangChain, AutoGen, CrewAI) are written in **Python**, they cannot natively use JS libraries.
 
