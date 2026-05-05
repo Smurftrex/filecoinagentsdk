@@ -41,6 +41,7 @@ with col1:
     
     if st.button("Initialize Wallet Instance", use_container_width=True):
         wallet = Wallet()
+        st.session_state["wallet_private_key"] = wallet.private_key  
         st.session_state["wallet_address"] = wallet.address
         try:
             st.session_state["wallet_balance"] = wallet.get_balance_fil()
@@ -52,7 +53,7 @@ with col1:
         st.code(f"active_address = '{st.session_state['wallet_address']}'\ncalibnet_balance = {st.session_state['wallet_balance']} tFIL")
         
         if st.button("Refresh Balance"):
-            wallet = Wallet()
+            wallet = Wallet(private_key=st.session_state["wallet_private_key"])
             try:
                 st.session_state["wallet_balance"] = wallet.get_balance_fil()
             except Exception:
@@ -65,17 +66,16 @@ with col1:
     agent_payload = st.text_area("JSON Payload containing Agent Context:", value='{\n  "status": "Agent active",\n  "active_task": "idle"\n}')
     
     if st.button("Execute client.store()", use_container_width=True):
-        if "wallet_address" not in st.session_state:
-            st.error("Initialize Wallet first.")
+        if "wallet_private_key" not in st.session_state:
+          st.error("Initialize Wallet first.")
         else:
-            try:
-                provider = LighthouseProvider()
-            except ValueError:
-                from agent_storage_sdk.providers.mock import MockProvider
-                provider = MockProvider()
-            
-            wallet = Wallet()
-            client = AgentStorageClient(provider=provider, policy=policy, wallet=wallet)
+         try:
+          provider = LighthouseProvider()
+         except ValueError:
+           from agent_storage_sdk.providers.mock import MockProvider
+           provider = MockProvider()
+         wallet = Wallet(private_key=st.session_state["wallet_private_key"])
+         client = AgentStorageClient(provider=provider, policy=policy, wallet=wallet)
             
             with open("ui_state.json", "w") as f:
                 f.write(agent_payload)
@@ -107,7 +107,7 @@ with col2:
                 from agent_storage_sdk.providers.mock import MockProvider
                 provider = MockProvider()
             
-            wallet = Wallet()
+            wallet = Wallet(private_key=st.session_state["wallet_private_key"])
             client = AgentStorageClient(provider=provider, policy=policy, wallet=wallet)
             
             try:
