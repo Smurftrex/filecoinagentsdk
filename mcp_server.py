@@ -6,6 +6,7 @@ from mcp.server.fastmcp import FastMCP
 # Import our custom SDK!
 from agent_storage_sdk import AgentStorageClient, Wallet, StoragePolicy
 from agent_storage_sdk.providers.lighthouse import LighthouseProvider
+from agent_storage_sdk.providers.mock import MockProvider
 
 # Initialize the MCP Server wrapper
 mcp = FastMCP("Filecoin Agent Storage SDK")
@@ -25,13 +26,7 @@ def get_client(api_key_override: str = None) -> AgentStorageClient:
         policy = StoragePolicy(max_cost_fil=1.0, redundancy=2, ttl_days=30)
         
         # Support fallback mock provider if no API key is set for testing
-        if api_key:
-            provider = LighthouseProvider(api_key=api_key)
-        else:
-            class MockProvider:
-                def store(self, p): return {"cid": "QmYwAPJzv5CZsnA625s3Xf2nemtYgPpHdWEz79ojWnPbdG", "name": "mock.json"}
-                def get_retrieve_url(self, c): return f"https://gateway.lighthouse.storage/ipfs/{c}"
-            provider = MockProvider()
+        provider = LighthouseProvider(api_key=api_key) if api_key else MockProvider()
             
         client_instance = AgentStorageClient(wallet, policy, provider)
     return client_instance
