@@ -14,13 +14,7 @@ The future of AI belongs to sovereign, autonomous agents capable of independent 
 - A [Lighthouse API key](https://files.lighthouse.storage/) for the default storage provider.
 - Required dependencies: `pip install -r requirements.txt`
 
-## Installation
-Clone the repository and install dependencies:
-```bash
-git clone https://github.com/your-repo/filecoin-agent-sdk.git
-cd filecoin-agent-sdk
-pip install -r requirements.txt
-```
+
 
 ## 1. MCP Server Integration (Claude, Cursor, Windsurf)
 The optimal method for utilizing this SDK is through the Model Context Protocol (MCP) Server. This allows an AI assistant to natively wrap Filecoin interactions within its conversational UI.
