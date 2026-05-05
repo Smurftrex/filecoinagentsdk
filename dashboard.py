@@ -86,7 +86,7 @@ with col1:
                 log_event(f"client.store() returned CID: {cid}")
                 st.success(f"Stored -> {cid}")
                 
-                if not type(provider).__name__ == 'MockProvider':
+                if not isinstance(provider, MockProvider):
                     st.markdown(f"[Verify on Gateway](https://gateway.lighthouse.storage/ipfs/{cid})")
                     
                 client.prune("ui_state.json")
